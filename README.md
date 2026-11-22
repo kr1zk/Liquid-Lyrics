@@ -16,6 +16,37 @@ It was built alongside **Glowify** and **Liquify** and still fits those two best
 other theme it picks up that theme's look instead. And if you want something else entirely,
 the settings menu lets you build your own.
 
+## Installation
+
+1. Download `liquid-lyrics.js` from this repository
+2. Put it into your Spicetify extensions folder:
+
+   **Windows:**
+
+   ```
+   %appdata%\spicetify\Extensions\
+   ```
+
+   **Linux / macOS:**
+
+   ```
+   ~/.config/spicetify/Extensions/
+   ```
+
+3. Enable it and apply:
+
+   ```bash
+   spicetify config extensions liquid-lyrics.js
+   spicetify apply
+   ```
+
+4. To remove it later:
+
+   ```bash
+   spicetify config extensions liquid-lyrics.js-
+   spicetify apply
+   ```
+
 ## Features
 
 ### Smooth Word-by-Word Lyrics
@@ -205,45 +236,7 @@ a theme that sets none.
 Some details may still not match perfectly outside of Glowify and Liquify. If something looks
 off, most of it can be changed in the settings.
 
-## Installation
 
-### Marketplace Installation
-
-1. Install the [Spicetify Marketplace](https://github.com/spicetify/marketplace) if you don't have it yet
-2. Open Spotify and go to **Marketplace → Extensions**
-3. Search for **Liquid Lyrics**
-4. Click **Install**
-5. Reload Spotify
-
-### Manual Installation
-
-1. Download `liquid-lyrics.js` from this repository
-2. Put it into your Spicetify extensions folder:
-
-   **Windows:**
-
-   ```
-   %appdata%spicetifyExtensions   ```
-
-   **Linux / macOS:**
-
-   ```
-   ~/.config/spicetify/Extensions/
-   ```
-
-3. Enable it and apply:
-
-   ```bash
-   spicetify config extensions liquid-lyrics.js
-   spicetify apply
-   ```
-
-To remove it later:
-
-```bash
-spicetify config extensions liquid-lyrics.js-
-spicetify apply
-```
 
 ### Building from source
 
@@ -280,7 +273,7 @@ after Spotify updates. Updates and fixes will be released when needed.
 
 Built alongside the Glowify and Liquify themes.
 
-Spicetify port by [YOUR_GITHUB_NAME](https://github.com/YOUR_GITHUB_NAME).
+Spicetify port by [kr1zk](https://github.com/kr1zk).
 
 ## License
 
