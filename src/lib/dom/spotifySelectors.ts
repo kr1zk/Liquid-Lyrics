@@ -4,13 +4,13 @@ export const RIGHT_SIDEBAR = ".right-sidebar";
 
 export const SIDEBAR_PANEL_CONTAINER = "#Desktop_PanelContainer_Id";
 
-export const NPV_PANEL = ".npv-sections";
+export const NPV_PANEL = ".npv-sections, .main-nowPlayingView-panel";
 
 export const NPV_TRACK_VISUAL = ".npv-cover-art-section";
 
 export const NPV_LYRICS_SECTION = '[data-testid="lyrics-npv-section"]';
 
-export const NPV_SECTION = ".npv-sections > *";
+export const NPV_SECTION = ":is(.npv-sections, .main-nowPlayingView-panel) > *";
 
 export const NPV_CANVAS_VIDEOS = [".npv-canvas-container video", ".npv-canvas-player video"] as const;
 
@@ -20,7 +20,7 @@ export const SPOTIFY_LYRICS_BUTTON = '[data-testid="lyrics-button"]';
 
 export const SPOTIFY_FULLSCREEN_BUTTON = '[data-testid="fullscreen-mode-button"]';
 
-export const NOW_PLAYING_EXTRA_CONTROLS = ".now-playing-bar-extra-controls";
+export const NOW_PLAYING_EXTRA_CONTROLS = ".now-playing-bar-extra-controls, .main-nowPlayingBar-extraControls";
 
 export const USER_WIDGET = '[data-testid="user-widget-link"]';
 

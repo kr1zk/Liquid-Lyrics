@@ -1,3 +1,5 @@
+import { locale } from "@/lib/spotikit";
+
 export type Translation = { text: string; language: string };
 
 const MAX_IN_FLIGHT = 4;
@@ -8,8 +10,7 @@ const queue: Array<() => void> = [];
 let inFlight = 0;
 
 export function translationLanguage(): string {
-  const kit = (window as any).SpotiKit;
-  return String(kit?.Locale?.language || navigator.language || "en").split("-")[0].toLowerCase();
+  return String(locale() || "en").split("-")[0].toLowerCase();
 }
 
 export function cachedTranslation(text: string): Translation | null | undefined {

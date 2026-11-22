@@ -1,7 +1,7 @@
 {
   "name": "liquid-lyrics",
   "version": "1.0.0",
-  "description": "Lyrics extension for SpotiKit",
+  "description": "Lyrics extension for Spicetify",
   "scripts": {
     "build": "node esbuild.config.mjs",
     "watch": "node esbuild.config.mjs --watch",

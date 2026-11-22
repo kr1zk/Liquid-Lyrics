@@ -1,14 +1,20 @@
-# Liquid Lyrics
+# Liquid Lyrics for Spicetify
 
-Liquid Lyrics is a modern SpotiKit lyrics extension.
+A Spicetify port of **[Liquid Lyrics](https://github.com/NMWplays/Liquid-Lyrics)** by
+**[NMW](https://github.com/NMWplays)**.
+
+> [!NOTE]
+> This is an unofficial fork. Liquid Lyrics was created by NMW as a SpotiKit extension.
+> This fork only makes it run on **Spicetify**. All features, design and the original code
+> are NMW's work. Please report problems with this port here, not in the original repository.
 
 It brings a smooth, theme-matching lyrics experience to Spotify with word-by-word synced
 lyrics, fullscreen lyrics, romanization support, an optional media player and an expandable
 sidebar lyrics card.
 
-It was built alongside **Glowify** and **Liquify** and still fits those two best, but it is no
-longer made just for them. Under any other theme it now picks up that theme's look instead.
-And if you want something else entirely, the settings menu lets you build your own.
+It was built alongside **Glowify** and **Liquify** and still fits those two best, but under any
+other theme it picks up that theme's look instead. And if you want something else entirely,
+the settings menu lets you build your own.
 
 ## Features
 
@@ -203,61 +209,80 @@ off, most of it can be changed in the settings.
 
 ### Marketplace Installation
 
-1. Open Spotify
-2. Open the SpotiKit Marketplace
-3. Search for Liquid Lyrics
-4. Click install
+1. Install the [Spicetify Marketplace](https://github.com/spicetify/marketplace) if you don't have it yet
+2. Open Spotify and go to **Marketplace → Extensions**
+3. Search for **Liquid Lyrics**
+4. Click **Install**
 5. Reload Spotify
 
 ### Manual Installation
 
-Download the latest `liquid-lyrics.js` and `spotikit.json` and place both in a
-`Liquid Lyrics` folder inside your SpotiKit extensions folder.
+1. Download `liquid-lyrics.js` from this repository
+2. Put it into your Spicetify extensions folder:
 
-**Windows:**
+   **Windows:**
 
+   ```
+   %appdata%spicetifyExtensions   ```
+
+   **Linux / macOS:**
+
+   ```
+   ~/.config/spicetify/Extensions/
+   ```
+
+3. Enable it and apply:
+
+   ```bash
+   spicetify config extensions liquid-lyrics.js
+   spicetify apply
+   ```
+
+To remove it later:
+
+```bash
+spicetify config extensions liquid-lyrics.js-
+spicetify apply
 ```
-%appdata%\SpotiKit\Extensions\Liquid Lyrics\
-```
-
-**Linux / macOS:**
-
-```
-~/.config/SpotiKit/Extensions/Liquid Lyrics/
-```
-
-Then reload Spotify.
 
 ### Building from source
 
 ```bash
 npm install
-npm run build    # dist/liquid-lyrics.js
-npm run deploy   # builds and copies it into SpotiKit's extensions folder
+npm run build    # dist/liquid-lyrics.js, also copied to ./liquid-lyrics.js
+npm run deploy   # builds and copies it into Spicetify's extensions folder
 ```
+
+## What changed in this port
+
+The extension code is NMW's original. The port only touches the parts that talked to SpotiKit:
+
+- `src/lib/spotikit.ts` is now a small adapter over `Spicetify.Platform`. It reads the player
+  state, controls playback and volume, handles likes, gets the access token and requests Spotify's
+  lyrics. It uses Spotify's own platform APIs directly, because on newer Spotify builds several
+  `Spicetify.Player` and `CosmosAsync` wrappers are missing
+- the settings entry in the profile menu is registered through `Spicetify.Menu`
+- the bundle is built as a classic script (IIFE), which is how Spicetify loads extensions
+- the selectors now also match the class names Spicetify's Spotify uses for the now playing bar
+  and the Now Playing View sidebar
 
 ## Compatibility
 
-Liquid Lyrics is designed for the current Spotify UI and runs on SpotiKit.
+Tested with Spicetify 2.46.7 on Spotify 1.3.10.
 
 Because Spotify updates its desktop client frequently, some parts of the extension may break
 after Spotify updates. Updates and fixes will be released when needed.
 
-## Roadmap
-
-Planned improvements:
-
-- more performance optimizations
-- more customization options
-- further polish for other themes
-- more fullscreen lyrics improvements
-
 ## Credits
 
-Created by NMW.
+**Liquid Lyrics** was created by [NMW](https://github.com/NMWplays). The original project is
+[NMWplays/Liquid-Lyrics](https://github.com/NMWplays/Liquid-Lyrics).
 
 Built alongside the Glowify and Liquify themes.
 
+Spicetify port by [YOUR_GITHUB_NAME](https://github.com/YOUR_GITHUB_NAME).
+
 ## License
 
-This project is licensed under the GNU Affero General Public License v3.0 (AGPL-3.0). See the LICENSE file for details.
+This project is licensed under the GNU Affero General Public License v3.0 (AGPL-3.0), the same
+license as the original. See the LICENSE file for details.

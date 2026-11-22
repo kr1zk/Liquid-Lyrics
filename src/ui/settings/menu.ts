@@ -1,3 +1,4 @@
+import { addProfileMenuItem } from "@/lib/spotikit";
 import {
   clamp,
   getSettings,
@@ -1505,11 +1506,7 @@ function closeSelectMenu() {
 
 export function registerSettingsMenuItem() {
   try {
-    (window as any).SpotiKit?.ProfileMenu?.add({
-      label: "Liquid Lyrics Settings",
-      icon: CONTEXT_MENU_ICON,
-      onSelect: () => openSettingsMenu(),
-    });
+    addProfileMenuItem("Liquid Lyrics Settings", CONTEXT_MENU_ICON, () => openSettingsMenu());
   } catch {
   }
 }

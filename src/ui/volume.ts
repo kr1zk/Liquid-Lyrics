@@ -1,5 +1,5 @@
 import { clamp } from "@/lib/settings";
-import { platform, player } from "@/lib/spotikit";
+import { onVolumeChange, player } from "@/lib/spotikit";
 import { onStop } from "@/lifecycle/runtime";
 
 const STEP = 0.05;
@@ -146,13 +146,7 @@ export function createVolumeControl(): VolumeControl {
     show();
   });
 
-  const events = platform()?.PlaybackAPI?.getEvents?.();
-  events?.addListener?.("volume", sync);
-  events?.addListener?.("muted_changed", sync);
-  onStop(() => {
-    events?.removeListener?.("volume", sync);
-    events?.removeListener?.("muted_changed", sync);
-  });
+  onStop(onVolumeChange(sync));
 
   let place = () => {};
   const attach = (card: HTMLElement, cover: HTMLElement) => {

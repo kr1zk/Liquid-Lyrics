@@ -1,10 +1,10 @@
 [
   {
     "name": "Liquid Lyrics",
-    "description": "A modern lyrics extension designed for Glowify & Liquify with adaptive styling for other Spicetify themes",
-    "preview": "https://raw.githubusercontent.com/NMWplays/Liquid-Lyrics/spicetify/preview.png",
-    "main": "https://nmwplays.github.io/Liquid-Lyrics/liquid-lyrics.js",
-    "readme": "https://raw.githubusercontent.com/NMWplays/Liquid-Lyrics/spicetify/README.md",
+    "description": "A modern lyrics extension designed for Glowify & Liquify with adaptive styling for other Spicetify themes (Spicetify port of NMW's Liquid Lyrics)",
+    "preview": "preview.png",
+    "main": "liquid-lyrics.js",
+    "readme": "README.md",
     "authors": [
       {
         "name": "NMW",

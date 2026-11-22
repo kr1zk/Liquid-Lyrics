@@ -31,7 +31,7 @@ async function main() {
   }
   globalScope.__liquidLyricsLoaded = true;
 
-  await wait(isSpotiKitReady);
+  await wait(isSpotiKitReady, 120000);
 
   injectStyles();
   applySettings();

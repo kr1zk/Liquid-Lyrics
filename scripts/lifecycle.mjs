@@ -149,7 +149,7 @@ function loaderOf(path) {
 export function lifecyclePlugin(runtime) {
   const runtimePath = resolve(runtime);
   return {
-    name: "spotikit-lifecycle",
+    name: "addon-lifecycle",
     setup(build) {
       build.onLoad({ filter: /\.[cm]?[jt]sx?$/ }, async (args) => {
         if (resolve(args.path) === runtimePath || args.path.endsWith(".d.ts")) return undefined;
@@ -235,14 +235,22 @@ export function addonOptions({ entry, outfile, runtime, globals, remove, plugins
       contents: [
         `import { lifecycle } from ${JSON.stringify(runtimePath)};`,
         `import main from ${JSON.stringify(entryPath)};`,
-        `export function run(context) { return lifecycle(context, main, ${options}); }`,
+        `const controller = new AbortController();`,
+        `const context = {`,
+        `  id: "liquid-lyrics",`,
+        `  signal: controller.signal,`,
+        `  onStop(fn) { controller.signal.addEventListener("abort", fn, { once: true }); },`,
+        `  style(css) { const el = document.createElement("style"); el.textContent = css; document.head.appendChild(el); return el; },`,
+        `  url(path) { return path; },`,
+        `};`,
+        `lifecycle(context, main, ${options}).catch((e) => console.error("[Liquid Lyrics]", e));`,
       ].join("\n"),
       resolveDir: dirname(entryPath),
       sourcefile: "addon-entry.js",
       loader: "js",
     },
     bundle: true,
-    format: "esm",
+    format: "iife",
     write: false,
     inject: [runtime],
     define: { ...lifecycleDefine, ...define },
@@ -251,13 +259,14 @@ export function addonOptions({ entry, outfile, runtime, globals, remove, plugins
       inlineWorkerPlugin(),
       lifecyclePlugin(runtime),
       {
-        name: "spotikit-addon-output",
+        name: "addon-output",
         setup(build) {
           build.onEnd(async (result) => {
             if (result.errors.length || !result.outputFiles?.length) return;
             const inner = result.outputFiles.find((file) => file.path.endsWith(".js")) ?? result.outputFiles[0];
             await mkdir(dirname(resolve(outfile)), { recursive: true });
-            await writeFile(outfile, outerModule(inner.text));
+            await writeFile(outfile, `// Liquid Lyrics for Spicetify
+${inner.text}`);
           });
         },
       },

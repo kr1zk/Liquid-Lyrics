@@ -10,6 +10,8 @@ const isWatch = process.argv.includes("--watch");
 const isDeploy = process.argv.includes("--deploy");
 
 const outfile = path.resolve(__dirname, "dist/liquid-lyrics.js");
+// Release copy in the repo root: this is the file the Spicetify Marketplace installs.
+const releaseFile = path.resolve(__dirname, "liquid-lyrics.js");
 
 const buildOptions = addonOptions({
   entry: path.resolve(__dirname, "src/app.ts"),
@@ -32,21 +34,21 @@ const buildOptions = addonOptions({
   minify: !isWatch,
 });
 
-function spotikitConfigDir() {
+function spicetifyConfigDir() {
   if (process.platform === "win32") {
     const roaming = process.env.APPDATA || path.join(os.homedir(), "AppData", "Roaming");
-    return path.join(roaming, "SpotiKit");
+    return path.join(roaming, "spicetify");
   }
   const xdg = process.env.XDG_CONFIG_HOME || path.join(os.homedir(), ".config");
-  return path.join(xdg, "SpotiKit");
+  return path.join(xdg, "spicetify");
 }
 
-function deployToSpotiKit() {
-  const destDir = path.join(spotikitConfigDir(), "Extensions", "Liquid Lyrics");
+function deployToSpicetify() {
+  const destDir = path.join(spicetifyConfigDir(), "Extensions");
   mkdirSync(destDir, { recursive: true });
   copyFileSync(outfile, path.join(destDir, path.basename(outfile)));
-  copyFileSync(path.resolve(__dirname, "spotikit.json"), path.join(destDir, "spotikit.json"));
   console.log(`Deployed to: ${destDir}`);
+  console.log("Run: spicetify config extensions liquid-lyrics.js && spicetify apply");
 }
 
 if (isWatch) {
@@ -55,6 +57,7 @@ if (isWatch) {
   console.log("Watching for changes...");
 } else {
   await esbuild.build(buildOptions);
-  console.log("Build complete: dist/liquid-lyrics.js");
-  if (isDeploy) deployToSpotiKit();
+  copyFileSync(outfile, releaseFile);
+  console.log("Build complete: dist/liquid-lyrics.js (copied to ./liquid-lyrics.js)");
+  if (isDeploy) deployToSpicetify();
 }
